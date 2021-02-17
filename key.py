@@ -1,19 +1,16 @@
+from utility import bin_to_str, str_to_bin
+
+
 class key:
     def __init__(self):
         self.bin_key = int("abcdef0123456789abcd", 16)
-        self.str_key = self.bin_to_str(self.bin_key)
-
-    def bin_to_str(self, binary):
-        return bin(binary)[2:]
+        self.str_key = bin_to_str(self.bin_key)
 
     def update_str_key(self):
-        self.str_key = self.bin_to_str(self.bin_key)
-
-    def str_to_bin(self, string):
-        return int(string, 2)
+        self.str_key = bin_to_str(self.bin_key)
 
     def update_bin_key(self):
-        self.bin_key = self.str_to_bin(self.str_key)
+        self.bin_key = str_to_bin(self.str_key)
 
     def rotate_left(self):
         lsb = self.str_key[1:]
@@ -26,7 +23,7 @@ class key:
         pos = x % 10
         scaled_pos = 80 - (pos * 8)
         str_substring = self.str_key[scaled_pos - 8 : scaled_pos]
-        return self.str_to_bin(str_substring)
+        return str_to_bin(str_substring)
 
     def get_keys(self):
         keys = []

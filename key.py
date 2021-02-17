@@ -34,18 +34,8 @@ class key:
             keys.append([])
             for four in range(12):
                 x = (4 * round) + (four % 4)
-                print(x)
                 keys[round].append(self.get_subkey_encrypt(x))
         return keys
-
-
-class zero_to_three:
-    def __init__(self):
-        self.num = 0
-
-    def increment(self):
-        self.num += 1
-        self.num %= 4
 
 
 def print_hex(l):

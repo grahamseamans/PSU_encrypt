@@ -1,13 +1,16 @@
 from utility import bin_to_str, str_to_bin
 
+test_key = 0xABCDEF0123456789ABCD
+
 
 class key:
-    def __init__(self):
-        self.bin_key = int("abcdef0123456789abcd", 16)
-        self.str_key = bin_to_str(self.bin_key)
+    def __init__(self, key):
+        self.bin_key = key
+        self.str_key = None
+        self.update_str_key()
 
     def update_str_key(self):
-        self.str_key = bin_to_str(self.bin_key)
+        self.str_key = bin_to_str(self.bin_key, lenght=80)
 
     def update_bin_key(self):
         self.bin_key = str_to_bin(self.str_key)
@@ -18,7 +21,7 @@ class key:
         self.str_key = lsb + msb
         self.update_bin_key()
 
-    def get_subkey_encrypt(self, x):
+    def get_subkey(self, x):
         self.rotate_left()
         pos = x % 10
         scaled_pos = 80 - (pos * 8)
@@ -31,7 +34,7 @@ class key:
             keys.append([])
             for four in range(12):
                 x = (4 * round) + (four % 4)
-                keys[round].append(self.get_subkey_encrypt(x))
+                keys[round].append(self.get_subkey(x))
         return keys
 
 
@@ -42,6 +45,7 @@ def print_hex(l):
         print()
 
 
-key_obj = key()
-keylist = key_obj.get_keys()
-print_hex(keylist)
+if __name__ == "main":
+    key_obj = key(test_key)
+    keylist = key_obj.get_keys()
+    print_hex(keylist)

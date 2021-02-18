@@ -1,4 +1,4 @@
-from utility import bin_to_str, str_to_bin
+from utility import bin_split
 
 
 class ftable:
@@ -295,12 +295,11 @@ class ftable:
         ]
 
     def do(self, x):
-        string = bin_to_str(x)
-        column = str_to_bin(string[:3])
-        row = str_to_bin(string[3:])
+        column, row = bin_split(x, split_index_from_right=4)
         return self.table[column][row]
 
 
-table = ftable()
-x = int("7a", 16)
-print(hex(table.do(x)))
+if __name__ == "main":
+    table = ftable()
+    x = 0x7A
+    print(hex(table.do(x)))

@@ -13,6 +13,7 @@ class cipher:
         self.file_key = "./key.txt"
         self.festel = festel()
         self.key = test_key
+        self.block = ""
 
     def decrypt(self):
         self.get_key()
@@ -34,17 +35,21 @@ class cipher:
         self.get_plaintext()
         with open(self.file_encrypted, "w") as f:
             while self.plaintext:
-                block = self.plaintext[:8]
-                length = len(block)
-                # block = int.from_bytes(block.encode(), "big")
-                # block = str_to_bin(block)
-                block = int("".join(format(ord(i), "08b") for i in block), 2)
-                if length < 8:
-                    block = block << (8 - length) * 8
-                encrypted_block = self.festel.encrypt(block)
-                encrypted_block = bin_to_hex_no_0x(encrypted_block, 16)
-                f.write(encrypted_block + "\n")
-                self.plaintext = self.plaintext[8:]
+                self.extract_leading_plaintext_block()
+                self.block_to_bin_with_padding()
+                self.block = self.festel.encrypt(self.block)
+                self.block = bin_to_hex_no_0x(self.block, 16)
+                f.write(self.block + "\n")
+
+    def extract_leading_plaintext_block(self):
+        self.block = self.plaintext[:8]
+        self.plaintext = self.plaintext[8:]
+
+    def block_to_bin_with_padding(self):
+        length = len(self.block)
+        self.block = int("".join(format(ord(i), "08b") for i in self.block), 2)
+        if length < 8:
+            self.block = self.block << (8 - length) * 8
 
     def get_key(self):
         self.key = ""
@@ -57,9 +62,3 @@ class cipher:
         self.plaintext = ""
         with open(self.file_plain, "r") as f:
             self.plaintext = f.read()[:-1]
-
-    def add_padding(self):
-        pad = len(self.plaintext) % 8
-        if pad > 0:
-            pad -= 8
-            self.plaintext = self.plaintext + ("0" * pad)

@@ -45,7 +45,7 @@ def print_hex(l):
         print()
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     key_obj = key(test_key)
     keylist = key_obj.get_keys()
     print_hex(keylist)

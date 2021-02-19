@@ -12,8 +12,8 @@ def bin_to_hex_no_0x(binary, length):
     return block
 
 
-def str_hex_no_0x_to_bin(hexi):
-    return int(hexi, 16)
+def str_hex_no_0x_to_bin(hex_str):
+    return int(hex_str, 16)
 
 
 def str_to_bin(string):
@@ -28,16 +28,6 @@ def bin_to_ascii(binary):
         string = string[8:]
         out += chr(int(character, 2))
     return out
-
-
-def BinaryToDecimal(binary):
-    decimal, i = 0, 0
-    while binary != 0:
-        dec = binary % 10
-        decimal = decimal + dec * pow(2, i)
-        binary = binary // 10
-        i += 1
-    return decimal
 
 
 def cons_bin(first, second, input_size):

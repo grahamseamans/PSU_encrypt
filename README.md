@@ -3,7 +3,7 @@
 * Graham Seamans
 * seamansgraham@gmail.com
 ### To Run
-* Place the key into `./key.txt`
+* Place the key into `./key.txt`. Hex but with no leading '0x'.
 * Place the plaintext into `./plaintext.txt` or the ciphertext into `./ciphertext.txt`
 * Run: '`python src/main.py e`' or '`python src/main.py d`' where `e` is encrypt and `d` is decrypt. If you don't provide an arumgent you will be prompted.
 * Find the plaintext or cypher text in the appropriate file.

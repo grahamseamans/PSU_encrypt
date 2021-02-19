@@ -3,9 +3,9 @@
 * Graham Seamans
 * seamansgraham@gmail.com
 ### To Run
-* Place the key into `./key.txt`
+* Place the key into `./key.txt`. Hex formatting no '0x'
 * Place the plaintext into `./plaintext.txt` or the ciphertext into `./ciphertext.txt`
-* Run: '`python src/main.py e`' or '`python src/main.py d`' where `e` is encrypt and `d` is decrypt. If you don't provide an arumgent you will be prompted.
+* Run: `python src/main.py e` or `python src/main.py d` where `e` is encrypt and `d` is decrypt. If you don't provide an arumgent you will be prompted.
 * Find the plaintext or cypher text in the appropriate file.
 ### Notes
 * This runs with ASCII encode and decode so things will get weird with UTF-8 files, although the majority of the text will be just fine.

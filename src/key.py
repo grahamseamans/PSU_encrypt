@@ -1,13 +1,24 @@
-from utility import bin_to_str, str_to_bin
-
-test_key = 0xABCDEF0123456789ABCD
+from utility import bin_to_str, str_to_bin, str_hex_no_0x_to_bin, bin_multi_split
 
 
 class key:
-    def __init__(self, key):
-        self.bin_key = key
-        self.str_key = None
+    def __init__(self):
+        self.key_file = "./key.txt"
+        self.bin_key = 0
+        self.str_key = ""
+        self.get_key_from_file()
         self.update_str_key()
+
+    def get_key_from_file(self):
+        read_key = None
+        with open(self.key_file, "r") as f:
+            read_key = f.read()
+        self.bin_key = str_hex_no_0x_to_bin(read_key)
+
+    def get_whitening_list(self):
+        k = bin_multi_split(self.bin_key, split_size=16, num_splits=5)
+        k = k[:-1]
+        return k
 
     def update_str_key(self):
         self.str_key = bin_to_str(self.bin_key, lenght=80)
@@ -36,16 +47,3 @@ class key:
                 x = (4 * round) + (four % 4)
                 keys[round].append(self.get_subkey(x))
         return keys
-
-
-def print_hex(l):
-    for sublist in l:
-        for subkey in sublist:
-            print(hex(subkey), end=" ")
-        print()
-
-
-if __name__ == "__main__":
-    key_obj = key(test_key)
-    keylist = key_obj.get_keys()
-    print_hex(keylist)
